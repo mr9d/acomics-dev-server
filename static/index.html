@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <form method="POST" action="/proxy/action/manageSerial">
+    <input type="text" name="id" value="13379">
+    <input type="hidden" name="submit" value="changeCategory">
+    <select name="category[]" style="height:200px;" multiple="">
+      <option value="1">Животные</option>
+      <option value="2">Драма</option>
+      <option value="3">Фэнтези</option>
+      <option value="4">Игры</option>
+      <option value="5">Юмор</option>
+      <option value="6">Журнал</option>
+      <option value="7">Паранормальное</option>
+      <option value="8">Конец света</option>
+      <option value="9">Романтика</option>
+      <option value="10">Фантастика</option>
+      <option value="11">Бытовое</option>
+      <option value="12">Стимпанк</option>
+      <option value="13">Супергерои</option>
+      <option value="14">Детектив</option>
+      <option value="15">Историческое</option>
+    </select>
+    <button type="submit">Применить</button>
+  </form>
+
+  <script>
+    const form = document.querySelector('form');
+    form.addEventListener('submit', async (evt) => {
+      evt.preventDefault();
+      const response = await fetch(form.action, {method:'post', body: new FormData(form)});
+      console.log(response);
+      const responseText = await response.text();
+      const parser = new DOMParser();
+      const htmlDoc = parser.parseFromString(responseText, 'text/html');
+      console.log(htmlDoc);
+    });
+  </script>
+
+</body>
+</html>
