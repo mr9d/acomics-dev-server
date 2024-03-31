@@ -12,5 +12,5 @@ app.use('/proxy', proxyRouter);
 // Run server
 const port = ++process.env.PORT || 8080;
 app.listen(port, () => {
-  logger.info(`Dev server started at : http://localhost:${port}/`);
+  logger.info(`Dev server started at: http://localhost:${port}/`);
 });
