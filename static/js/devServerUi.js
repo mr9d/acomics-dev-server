@@ -1,32 +1,22 @@
 (() => {
 
-  const PROXY_PREFIX = '/proxy';
   const PROFILE_SETTINGS_PATH = '/settings/profile';
   const AUTH_LOGIN_PATH = '/action/authLogin';
-
-  const domParser = new DOMParser();
-
-  const isDevServer = () => window.location.hostname !== 'acomics.ru';
-
-  const proxifyPath = (path) => isDevServer() ? PROXY_PREFIX + path : path;
+  const AUTH_LOGOUT_PATH = '/auth/logout';
 
   const getUsername = async () => {
-    const response = await fetch(proxifyPath(PROFILE_SETTINGS_PATH), { method: 'get' });
-    const responseText = await response.text();
-    const htmlDoc = domParser.parseFromString(responseText, 'text/html');
-    const usernameInput = htmlDoc.querySelector('main form.profile input[name="username"]');
+    const response = await window.acomicsLegacyClient.fetchAndParseHtml(PROFILE_SETTINGS_PATH, {method: 'get'});
+    const usernameInput = response.querySelector('main form.profile input[name="username"]');
     return usernameInput === null ? null : usernameInput.value;
   };
 
-  const authFormSubmitListener = async (evt) => {
+  const loginFormSubmitListener = async (evt) => {
     evt.preventDefault();
     const form = evt.target;
-    const response = await fetch(proxifyPath(AUTH_LOGIN_PATH), { method: 'post', body: new FormData(form)});
-    const responseText = await response.text();
-    const htmlDoc = domParser.parseFromString(responseText, 'text/html');
-    const errorSection = htmlDoc.querySelector('div#error');
+    const response = await window.acomicsLegacyClient.sendFormAndParseHtml(form);
+    const errorSection = response.querySelector('div#error');
     if (errorSection === null) {
-      const username = await getUsername();
+      const username = form.username.value;
       initAuthPanel(username);
     } else {
       console.log(errorSection);
@@ -36,6 +26,8 @@
 
   const createLoginForm = () => {
     const formElement = document.createElement('form');
+    formElement.setAttribute('method', 'post');
+    formElement.setAttribute('action', AUTH_LOGIN_PATH);
 
     const usernameInput = document.createElement('input');
     usernameInput.setAttribute('type', 'text');
@@ -64,7 +56,32 @@
       submitButton,
       hiddenElement);
 
-    formElement.addEventListener('submit', authFormSubmitListener);
+    formElement.addEventListener('submit', loginFormSubmitListener);
+
+    return formElement;
+  };
+
+  const logoutFormSubmitListener = async (evt) => {
+    evt.preventDefault();
+    await window.acomicsLegacyClient.sendFormAndParseHtml(evt.target);
+    initAuthPanel(null);
+  };
+
+  const createLogoutForm = (username) => {
+    const formElement = document.createElement('form');
+    formElement.setAttribute('method', 'get');
+    formElement.setAttribute('action', AUTH_LOGOUT_PATH);
+
+    const submitButton = document.createElement('button');
+    submitButton.setAttribute('type', 'submit');
+    submitButton.innerText = 'Выйти';
+    submitButton.style.margin = '0 0 0 0.5em';
+
+    formElement.append(
+      document.createTextNode('Вы вошли как: ' + username),
+      submitButton);
+
+    formElement.addEventListener('submit', logoutFormSubmitListener);
 
     return formElement;
   };
@@ -79,10 +96,11 @@
 
     authElement.style.padding = '1em';
     authElement.style.background = 'lightgrey';
+    authElement.style.margin = '0 0 8px';
     authElement.classList.add('auth');
 
     if (username) {
-      authElement.innerText = 'Вы вошли как: ' + username;
+      authElement.append(createLogoutForm(username));
     } else {
       authElement.append(createLoginForm());
     }
