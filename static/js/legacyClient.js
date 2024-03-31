@@ -15,8 +15,8 @@
   };
 
   const sendFormAndParseHtml = async (form) => {
-    const init = {method: form.method};
-    if (form.getAttribute('method') === 'post') {
+    const init = {method: form.getAttribute('method')};
+    if (form.getAttribute('method').toLowerCase() === 'post') {
       init['body'] = new FormData(form);
     }
     return fetchAndParseHtml(form.getAttribute('action'), init);

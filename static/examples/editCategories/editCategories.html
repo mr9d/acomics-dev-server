@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Шаблон компонента</title>
+
+  <!-- Модуль для взаимодействия с сервером Авторского Комикса -->
+  <script defer src="/js/legacyClient.js"></script>
+
+  <!-- Форма аутентификации ТОЛЬКО для дев-сервера (этого скрипта не будет на продакшене) -->
+  <script defer src="/js/devServerUi.js?"></script>
+
+  <!-- Подключение скрипта страницы/компонента -->
+  <script defer src="/examples/editCategories/editCategories.js"></script>
+
+</head>
+
+<body>
+
+  <h1>Изменение категорий комикса</h1>
+
+  <form method="POST" action="/action/manageSerial" class="serialCategories">
+
+    <p>Идентификатор комикса: <input type="text" name="id" value="13379"></p>
+
+    <p>Категории: <select name="category[]" style="height:200px;" multiple="">
+      <option value="1">Животные</option>
+      <option value="2">Драма</option>
+      <option value="3">Фэнтези</option>
+      <option value="4">Игры</option>
+      <option value="5">Юмор</option>
+      <option value="6">Журнал</option>
+      <option value="7">Паранормальное</option>
+      <option value="8">Конец света</option>
+      <option value="9">Романтика</option>
+      <option value="10">Фантастика</option>
+      <option value="11">Бытовое</option>
+      <option value="12">Стимпанк</option>
+      <option value="13">Супергерои</option>
+      <option value="14">Детектив</option>
+      <option value="15">Историческое</option>
+    </select></p>
+
+    <button type="submit">Применить</button>
+
+    <input type="hidden" name="submit" value="changeCategory">
+
+  </form>
+
+</body>
+</html>

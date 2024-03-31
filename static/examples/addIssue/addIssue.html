@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Шаблон компонента</title>
+
+  <!-- Модуль для взаимодействия с сервером Авторского Комикса -->
+  <script defer src="/js/legacyClient.js"></script>
+
+  <!-- Форма аутентификации ТОЛЬКО для дев-сервера (этого скрипта не будет на продакшене) -->
+  <script defer src="/js/devServerUi.js?"></script>
+
+  <!-- Подключение скрипта страницы/компонента -->
+  <script defer src="/examples/addIssue/addIssue.js"></script>
+
+</head>
+
+<body>
+
+  <h1>Добавление страницы комикса</h1>
+
+  <form method="POST" action="/action/manageAddIssue" enctype="multipart/form-data" class="manageAddIssue">
+
+    <p>Идентификатор комикса: <input type="text" name="serialId" value="13379"></p>
+
+    <p>Изображдение: <input name="image" type="file" data-limit="2097152"></p>
+
+    <button type="submit">Загрузить</button>
+
+    <input type="hidden" name="submit" value="add">
+    <input name="publish" type="hidden" value="instant">
+    <input name="numberOrder" type="hidden" value="checked">
+
+  </form>
+
+</body>
+</html>
