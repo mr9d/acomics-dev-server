@@ -9,7 +9,9 @@
   const proxifyPath = (path) => isDevServer() ? PROXY_PREFIX + path : path;
 
   const fetchAndParseHtml = async (path, init) => {
+    console.log(proxifyPath(path), init)
     const response = await fetch(proxifyPath(path), init);
+    console.log(proxifyPath(path), init, response)
     const responseText = await response.text();
     return domParser.parseFromString(responseText, 'text/html');
   };

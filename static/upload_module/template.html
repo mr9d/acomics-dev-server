@@ -6,23 +6,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Шаблон компонента</title>
 
+  <link rel="stylesheet" href="hystmodal.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="modal.css">
+  <link rel="stylesheet" href="upload__card_style.css">
+
+
   <!-- Модуль для взаимодействия с сервером Авторского Комикса -->
   <script defer src="/js/legacyClient.js"></script>
 
   <!-- Форма аутентификации ТОЛЬКО для дев-сервера (этого скрипта не будет на продакшене) -->
   <script defer src="/js/devServerUi.js?"></script>
 
-  <!-- Подключение скрипта компонента -->
-  <script defer src="/template/template.js"></script>
+  <script defer src="hystmodal.min.js"></script>
+  <script defer src="main.js"></script>
 
-  <!-- Подключение стилей компонента -->
-  <script defer src="/template/template.css"></script>
 
 </head>
 
 <body>
 
-  <p>Здесь HTML-код компонента.</p>
+<div class="module__upload"></div>
 
 </body>
 </html>

@@ -16,9 +16,11 @@
     const response = await window.acomicsLegacyClient.sendFormAndParseHtml(form);
     const errorSection = response.querySelector('div#error');
     if (errorSection === null) {
+      console.log("awwgfawgaw");
       const username = form.username.value;
-      initAuthPanel(username);
+      await initAuthPanel(username);
     } else {
+      console.log("llwalflawfl")
       console.log(errorSection);
       alert('Ошибка авторизации. См. детали в консоли.');
     }
