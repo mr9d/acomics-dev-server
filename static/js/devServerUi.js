@@ -98,6 +98,7 @@
     authElement.style.background = 'lightgrey';
     authElement.style.margin = '0 0 8px';
     authElement.classList.add('auth');
+    authElement.dataset.username = username;
 
     if (username) {
       authElement.append(createLogoutForm(username));

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Изменение аватарки</title>
+
+  <!-- Модуль для взаимодействия с сервером Авторского Комикса -->
+  <script defer src="/js/legacyClient.js"></script>
+
+  <!-- Форма аутентификации ТОЛЬКО для дев-сервера (этого скрипта не будет на продакшене) -->
+  <script defer src="/js/devServerUi.js?"></script>
+
+  <!-- Подключение скрипта страницы/компонента -->
+  <script defer src="/examples/editAvatar/editAvatar.js"></script>
+
+</head>
+
+<body>
+
+  <h1>Изменение аватарки</h1>
+
+  <form class="editAvatar" method="POST" action="/action/settingsProfile" enctype="multipart/form-data">
+
+    <input name="username" type="hidden" value="">
+
+    <p>Аватарка: <input type="file" name="avatar" /></p>
+
+    <button type="submit">Применить</button>
+
+    <input type="hidden" name="submit" value="changeAvatar">
+
+  </form>
+
+</body>
+</html>
