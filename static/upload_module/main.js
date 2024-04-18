@@ -1,39 +1,39 @@
 (() => {
   const PAGE_HTML_TEMPLATE = `
 <div class="upload__dropbox">
-    <label class="upload__dropbox_label">Drop your files here</label>
-    <input type="file" class="upload__input" data-limit="2097152" accept="image/png, image/jpeg" multiple name="files">
+    <label class="upload__dropbox-label">Drop your files here</label>
+    <input type="file" class="upload__dropbox-input" data-limit="2097152" accept="image/png, image/jpeg" multiple name="files">
 </div>
-<div class="upload__field upload__field-disabled">
+<div class="upload__field upload__field_disabled">
     <h2 class="upload__title">Добавить выпуск</h2>
-    <div class="upload__button upload__button-add">
-        <input type="file" name="inner_files" data-limit="2097152" accept="image/png, image/jpeg" class="upload__button-add__input" multiple>
+    <div class="upload__button upload__top-buttons">
+        <input type="file" name="inner_files" data-limit="2097152" accept="image/png, image/jpeg" class="upload__add-button" multiple>
         <label>Загрузить изображения</label>
     </div>
     <div class="upload__list">
     </div>
-    <label for="upload__description" class="upload__description-title upload__label">Описание (для всех
+    <label for="upload__description" class="upload__description-title upload__section-label">Описание (для всех
         страниц)</label>
     <textarea name="description" id="upload__description" class="upload__description" cols="30"
               rows="10"></textarea>
-    <label class="upload__publication-title upload__label">Режим публикации</label>
+    <label class="upload__publication-title upload__section-label">Режим публикации</label>
     <div class="upload__publication">
-        <input name="publication" type="radio" value="instant" class="upload__publication__input"
+        <input name="publication" type="radio" value="instant" class="upload__publication-input"
                id="upload__immediately" checked>
-        <label for="upload__immediately" class="upload__publication__label">Сразу</label>
-        <input name="publication" type="radio" value="auto" class="upload__publication__input"
+        <label for="upload__immediately" class="upload__publication-label">Сразу</label>
+        <input name="publication" type="radio" value="auto" class="upload__publication-input"
                id="upload__autopublication">
-        <label for="upload__autopublication" class="upload__publication__label">Автопубликация</label>
+        <label for="upload__autopublication" class="upload__publication-label">Автопубликация</label>
     </div>
-    <div class="upload__buttons">
-        <button class="upload__button upload__button-dark upload__button-submit">Опубликовать</button>
-        <button data-hystmodal="#previewModal" class="upload__button preview__button">Предпросмотр</button>
+    <div class="upload__bottom-buttons">
+        <button class="upload__button upload__button_submit">Опубликовать</button>
+        <button data-hystmodal="#previewModal" class="upload__button upload__preview-button">Предпросмотр</button>
     </div>
 </div>
 <div class="hystmodal" id="multipleIssuesModal" aria-hidden="true">
     <div class="hystmodal__wrap">
         <div class="hystmodal__window" role="dialog" aria-modal="true">
-            <div class="modal__edit__container">
+            <div class="modal__edit">
                 <div class="modal__edit__img-container">
                     <img src="" alt="Примеры" class="modal__edit__img">
                 </div>
@@ -70,7 +70,7 @@
   let modalIndex = 0;
 
   const onFirstInput = (e) => {
-    const files = document.querySelector(".upload__input").files;
+    const files = document.querySelector(".upload__dropbox-input").files;
     const dropbox = document.querySelector(".upload__dropbox");
     for (let elem of files) {
       issuesToUpload.push(createFile(elem));
@@ -172,7 +172,7 @@
 
   const initTable = () => {
     const field = document.querySelector(".upload__field");
-    field.classList.remove("upload__field-disabled");
+    field.classList.remove("upload__field_disabled");
     const cardList = document.querySelector(".upload__list");
     cardList.innerHTML = "";
     let count = 0;
@@ -184,7 +184,7 @@
   }
 
   const handleInnerInput = () => {
-    const files = document.querySelector(".upload__button-add__input").files;
+    const files = document.querySelector(".upload__add-button").files;
     for (let elem of files) {
       issuesToUpload.push(createFile(elem));
     }
@@ -210,11 +210,11 @@
   const init = () => {
     const module = document.querySelector(".multiple-issues-upload");
     initPage(module);
-    const input = document.querySelector(".upload__input");
-    const add = document.querySelector(".upload__button-add__input");
+    const input = document.querySelector(".upload__dropbox-input");
+    const add = document.querySelector(".upload__add-button");
     const saveModal = document.querySelector(".modal__edit__button");
-    const previewButton = document.querySelector(".preview__button");
-    const submitButton = document.querySelector(".upload__button-submit");
+    const previewButton = document.querySelector(".upload__preview-button");
+    const submitButton = document.querySelector(".upload__button_submit");
     input.addEventListener("change", onFirstInput);
     add.addEventListener("change", handleInnerInput);
     saveModal.addEventListener("click", handleSaveEdit);

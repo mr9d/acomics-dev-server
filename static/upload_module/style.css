@@ -44,7 +44,7 @@
   padding: 0;
 }
 
-.upload__input {
+.upload__dropbox-input {
   height: 100%;
   width: 100%;
   opacity: 0;
@@ -53,7 +53,7 @@
   padding: 0;
 }
 
-.upload__dropbox_label {
+.upload__dropbox-label {
   font-family: var(--h);
   line-height: 1.15;
   font-size: 32px;
@@ -95,7 +95,7 @@
   padding: 0;
 }
 
-.upload__button-add {
+.upload__top-buttons {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -104,7 +104,7 @@
   padding: 0;
 }
 
-.upload__button-add__input {
+.upload__add-button {
   position: absolute;
   left: 0;
   top: 0;
@@ -150,7 +150,7 @@
   margin: 0;
 }
 
-.upload__label {
+.upload__section-label {
   margin: 10px 0;
   font-family: var(--p);
   line-height: 0.75;
@@ -187,7 +187,7 @@
   margin: 0;
 }
 
-.upload__publication__label {
+.upload__publication-label {
   font-family: var(--p);
   line-height: 0.75;
   font-size: 14px;
@@ -197,12 +197,12 @@
   padding: 0;
 }
 
-.upload__publication__input {
+.upload__publication-input {
   margin: 0;
   padding: 0;
 }
 
-.upload__button-dark {
+.upload__button_submit {
   background-color: var(--yellow-btn);
   margin: 0;
   padding: 0;
@@ -215,7 +215,7 @@
   padding: 0;
 }
 
-.upload__field-disabled {
+.upload__field_disabled {
   display: none;
   margin: 0;
   padding: 0;
@@ -325,7 +325,7 @@
   padding: 0;
 }
 
-.modal__edit__container {
+.modal__edit {
   box-sizing: border-box;
   width: 900px;
   height: 600px;
