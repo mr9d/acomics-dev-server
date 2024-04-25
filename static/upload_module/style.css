@@ -31,7 +31,7 @@
   padding: 0;
 }
 
-.upload__dropbox {
+.multiple-issues-upload__dropbox {
   height: 100%;
   width: 100%;
   display: flex;
@@ -44,7 +44,7 @@
   padding: 0;
 }
 
-.upload__input {
+.multiple-issues-upload__dropbox-input {
   height: 100%;
   width: 100%;
   opacity: 0;
@@ -53,7 +53,7 @@
   padding: 0;
 }
 
-.upload__dropbox_label {
+.multiple-issues-upload__dropbox-label {
   font-family: var(--h);
   line-height: 1.15;
   font-size: 32px;
@@ -67,13 +67,13 @@
   padding: 0;
 }
 
-.upload__dropbox-disabled {
+.multiple-issues-upload__dropbox-disabled {
   display: none;
   margin: 0;
   padding: 0;
 }
 
-.upload__field {
+.multiple-issues-upload__field {
   box-sizing: border-box;
   width: 100%;
   height: 100%;
@@ -85,7 +85,7 @@
   margin: 0;
 }
 
-.upload__title {
+.multiple-issues-upload__title {
   margin: 10px 0;
   font-family: var(--h);
   color: var(--page-title-red);
@@ -95,7 +95,7 @@
   padding: 0;
 }
 
-.upload__button-add {
+.multiple-issues-upload__top-buttons {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -104,7 +104,7 @@
   padding: 0;
 }
 
-.upload__button-add__input {
+.multiple-issues-upload__add-button {
   position: absolute;
   left: 0;
   top: 0;
@@ -116,7 +116,7 @@
   padding: 0;
 }
 
-.upload__button {
+.multiple-issues-upload__button {
   background-color: var(--ligth-yellow-btn);
   margin: 10px 0;
   font-family: var(--p);
@@ -134,11 +134,11 @@
   transition: .3s;
 }
 
-.upload__button:hover {
+.multiple-issues-upload__button:hover {
   filter: brightness(120%);
 }
 
-.upload__list {
+.multiple-issues-upload__list {
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
@@ -150,7 +150,7 @@
   margin: 0;
 }
 
-.upload__label {
+.multiple-issues-upload__section-label {
   margin: 10px 0;
   font-family: var(--p);
   line-height: 0.75;
@@ -159,7 +159,7 @@
   padding: 0;
 }
 
-.upload__description {
+.multiple-issues-upload__description {
   box-sizing: border-box;
   width: 100%;
   /* border: none; */
@@ -176,7 +176,7 @@
   margin: 0;
 }
 
-.upload__publication {
+.multiple-issues-upload__publication {
   display: flex;
   flex-direction: row;
   height: 40px;
@@ -187,7 +187,7 @@
   margin: 0;
 }
 
-.upload__publication__label {
+.multiple-issues-upload__publication-label {
   font-family: var(--p);
   line-height: 0.75;
   font-size: 14px;
@@ -197,32 +197,32 @@
   padding: 0;
 }
 
-.upload__publication__input {
+.multiple-issues-upload__publication-input {
   margin: 0;
   padding: 0;
 }
 
-.upload__button-dark {
+.multiple-issues-upload__submit-button {
   background-color: var(--yellow-btn);
   margin: 0;
   padding: 0;
 }
 
-.upload__elem {
+.multiple-issues-upload__elem {
   height: 50px;
   border: 1px dashed black;
   margin: 0;
   padding: 0;
 }
 
-.upload__field-disabled {
+.multiple-issues-upload__field_disabled {
   display: none;
   margin: 0;
   padding: 0;
 }
 
 
-.upload__card:last-child .upload__card__button_move-right {
+.multiple-issues-upload__card:last-child .multiple-issues-upload__card-button_type_move-right {
   pointer-events: none;
   opacity: .5;
   cursor: none;
@@ -230,7 +230,7 @@
   padding: 0;
 }
 
-.upload__card:first-child .upload__card__button_move-left {
+.multiple-issues-upload__card:first-child .multiple-issues-upload__card-button_type_move-left {
   pointer-events: none;
   opacity: .5;
   cursor: none;
@@ -238,7 +238,7 @@
   padding: 0;
 }
 
-.preview__container {
+.preview-modal__container {
   max-width: 80vw;
   display: flex;
   flex-direction: column;
@@ -249,14 +249,14 @@
   margin: 0;
 }
 
-.preview__image {
+.preview-modal__image {
   width: 100%;
   object-fit: cover;
   margin: 0;
   padding: 0;
 }
 
-.preview__modal {
+.preview-modal {
   border-radius: 15px;
   margin: 0;
   padding: 0;
@@ -271,7 +271,7 @@
   padding: 0;
 }
 
-.upload__card {
+.multiple-issues-upload__card {
   width: 150px;
   height: 240px;
   background-color: #ebe5dd;
@@ -280,7 +280,7 @@
   margin: 0;
 }
 
-.upload__card__thumbnail {
+.multiple-issues-upload__card-thumbnail {
   width: 130px;
   height: 195px;
   background-color: black;
@@ -290,14 +290,14 @@
   padding: 0;
 }
 
-.upload__card__thumbnail:hover {
+.multiple-issues-upload__card-thumbnail:hover {
   transition-delay: 2s;
   transform: scale(180%);
   margin: 0;
   padding: 0;
 }
 
-.upload__card__title-segment {
+.multiple-issues-upload__card-title-segment {
   display: flex;
   justify-content: flex-end;
   height: 15px;
@@ -306,7 +306,7 @@
   padding: 0;
 }
 
-.upload__card__title {
+.multiple-issues-upload__card-title {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 15px;
   font-weight: normal;
@@ -318,14 +318,14 @@
   padding: 0;
 }
 
-.upload__card__button {
+.multiple-issues-upload__card-button {
   width: 15px;
   height: 15px;
   margin: 0;
   padding: 0;
 }
 
-.modal__edit__container {
+.edit-modal {
   box-sizing: border-box;
   width: 900px;
   height: 600px;
@@ -337,7 +337,7 @@
   justify-content: center;
 }
 
-.modal__edit__img-container {
+.edit-modal__img-container {
   box-sizing: border-box;
   width: 425px;
   height: 580px;
@@ -346,17 +346,17 @@
   overflow: hidden;
 }
 
-.modal__edit__img {
+.edit-modal__img {
   width: 410px;
   height: 560px;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .hystmodal__window {
   width: auto;
 }
 
-.modal__edit__text {
+.edit-modal__text {
   box-sizing: border-box;
   width: 425px;
   height: 580px;
@@ -366,7 +366,7 @@
   justify-content: space-between;
 }
 
-.modal__edit__name-field {
+.edit-modal__name-field {
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
@@ -376,7 +376,7 @@
   width: 100%;
 }
 
-.modal__edit__name {
+.edit-modal__name {
   font-family: var(--p);
   font-size: 20px;
   font-weight: 500;
@@ -384,7 +384,7 @@
   text-align: left;
 }
 
-.modal__edit__close {
+.edit-modal__close {
   width: 20px;
   height: 20px;
   background-color: rgba(0, 0, 0, 0);
@@ -393,15 +393,15 @@
   cursor: pointer;
 }
 
-.modal__edit__text hr {
+.edit-modal__text hr {
   width: 100%;
   height: 1px;
   box-sizing: border-box;
   margin: 10px 0 15px 0;
-  border: 1px solid black;
+  border: 1px solid var(--gray-border);
 }
 
-.modal__edit__label {
+.edit-modal__label {
   font-family: var(--p);
   line-height: 0.75;
   font-size: 16px;
@@ -409,11 +409,10 @@
   margin: 0 0 5px;
 }
 
-.modal__edit__textarea {
+.edit-modal__textarea {
   box-sizing: border-box;
   width: 100%;
-  border: none;
-  background-color: var(--gray-bg);
+  border: 1px solid var(--gray-border);
   resize: none;
   font-family: var(--p);
   line-height: 0.75;
@@ -425,12 +424,12 @@
   padding: 10px;
 }
 
-.modal__edit__description {
+.edit-modal__description {
   margin-bottom: 10px;
   min-height: 360px
 }
 
-.modal__edit__button {
+.edit-modal__button {
   background-color: var(--ligth-yellow-btn);
   font-family: var(--p);
   line-height: 0.75;
@@ -447,7 +446,7 @@
   transition: .3s;
 }
 
-.modal__edit__button:hover {
+.edit-modal__button:hover {
   filter: brightness(120%);
 }
 
