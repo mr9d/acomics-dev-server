@@ -349,7 +349,7 @@
 .edit-modal__img {
   width: 410px;
   height: 560px;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .hystmodal__window {
