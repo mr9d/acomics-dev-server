@@ -90,7 +90,7 @@
     <img class="image-fit" src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='iso-8859-1'?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools --><!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg fill='%23000000' version='1.1' id='Capa_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' \t width='800px' height='800px' viewBox='0 0 29.771 29.771'\t xml:space='preserve'><g>\t<path d='M29.771,14.886c0,1.657-1.344,3-3,3H11.486l4.506,4.505c1.172,1.172,1.172,3.071,0,4.243\t\tc-0.586,0.586-1.354,0.879-2.122,0.879s-1.534-0.293-2.12-0.878L0,14.885L11.745,3.138c1.173-1.172,3.071-1.171,4.243,0\t\tc1.172,1.172,1.172,3.071,0,4.243l-4.505,4.506h15.289C28.427,11.886,29.771,13.229,29.771,14.886z'/></g></svg>
 " alt="Передвинуть влево">
 </a>
-<h3 class="multiple-issues-upload__card__title"></h3>
+<h3 class="multiple-issues-upload__card-title"></h3>
 <a href="" class="multiple-issues-upload__card-button multiple-issues-upload__card-button_type_move-right">
     <img class="image-fit" src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='iso-8859-1'?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools --><!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg fill='%23000000' version='1.1' id='Capa_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' \t width='800px' height='800px' viewBox='0 0 29.774 29.773'\t xml:space='preserve'><g>\t<path d='M29.774,14.889L18.026,26.636c-0.586,0.585-1.354,0.878-2.121,0.878c-0.766,0-1.535-0.293-2.121-0.879\t\tc-1.172-1.171-1.172-3.071,0-4.243l4.505-4.505H3c-1.656,0-3-1.343-3-3s1.344-3,3-3h15.286l-4.506-4.506\t\tc-1.172-1.171-1.172-3.071,0-4.242c1.172-1.172,3.071-1.172,4.243,0L29.774,14.889z'/></g></svg>
 " alt="Передвинуть вправо">
@@ -104,9 +104,9 @@
 " alt="Удалить">
 </a>`;
     const links = document.createElement("div");
-    links.className = "multiple-issues-upload__card__title-segment";
+    links.className = "multiple-issues-upload__card-title-segment";
     links.innerHTML = innerText;
-    links.querySelector('.multiple-issues-upload__card__title').innerText = name;
+    links.querySelector('.multiple-issues-upload__card-title').innerText = name;
     links.querySelector('.multiple-issues-upload__card-button_type_move-right').classList.add('multiple-issues-upload__card-button_type_move-right-' + index);
     links.querySelector('.multiple-issues-upload__card-button_type_move-left').classList.add('multiple-issues-upload__card-button_type_move-left-' + index);
     links.querySelector('.multiple-issues-upload__card-button_type_edit').classList.add('multiple-issues-upload__card-button_type_edit-' + index);
@@ -119,7 +119,7 @@
     card.className = 'multiple-issues-upload__card';
     card.dataset.index = index;
     const thumbnailDiv = document.createElement("div");
-    thumbnailDiv.className = "multiple-issues-upload__card__thumbnail";
+    thumbnailDiv.className = "multiple-issues-upload__card-thumbnail";
     const thumbnail = document.createElement("img")
     thumbnail.className = "image-fit";
     thumbnail.src = URL.createObjectURL(elem);
