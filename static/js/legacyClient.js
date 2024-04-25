@@ -1,10 +1,11 @@
 (() => {
 
   const PROXY_PREFIX = '/proxy';
+  const LIVE_HOST_NAMES = ['acomics.ru', 'acomics4'];
 
   const domParser = new DOMParser();
 
-  const isDevServer = () => window.location.hostname !== 'acomics.ru';
+  const isDevServer = () => !LIVE_HOST_NAMES.includes(window.location.hostname);
 
   const proxifyPath = (path) => isDevServer() ? PROXY_PREFIX + path : path;
 
