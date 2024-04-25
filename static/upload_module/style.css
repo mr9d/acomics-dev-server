@@ -21,7 +21,7 @@
   --p: Arial, Helvetica, sans-serif;
 }
 
-.container {
+.multiple-issues-upload__container {
   min-height: 1000px;
   min-width: 750px;
   border: 1px solid black;
@@ -448,6 +448,57 @@
 
 .edit-modal__button:hover {
   filter: brightness(120%);
+}
+
+@media screen and (max-width: 950px) {
+  .edit-modal{
+    width: 450px;
+    height: auto;
+    flex-direction: column;
+  }
+  .edit-modal__img-container{
+    display: none;
+  }
+  .edit-modal__text{
+    padding: 10px 20px 10px 20px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .multiple-issues-upload__list{
+    width: 330px;
+  }
+  .multiple-issues-upload__container{
+    min-width: 500px;
+  }
+  .multiple-issues-upload__field{
+    align-items: center;
+    padding: 20px;
+  }
+  .multiple-issues-upload__section-label{
+    margin: 20px 0 10px 0;
+  }
+  .multiple-issues-upload__bottom-buttons{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+  }
+}
+@media screen and (max-width: 550px) {
+  .multiple-issues-upload__container{
+    min-width: 300px;
+  }
+  .multiple-issues-upload__list{
+    width: 170px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .edit-modal{
+    width: 310px;
+  }
+  .edit-modal__text{
+    width: 310px;
+  }
 }
 
 

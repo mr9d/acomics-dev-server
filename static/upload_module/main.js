@@ -12,10 +12,6 @@
     </div>
     <div class="multiple-issues-upload__list">
     </div>
-    <label for="multiple-issues-upload__description" class="multiple-issues-upload__section-label">Описание (для всех
-        страниц)</label>
-    <textarea name="description" id="multiple-issues-upload__description" class="multiple-issues-upload__description" cols="30"
-              rows="10"></textarea>
     <label class="multiple-issues-upload__section-label">Режим публикации</label>
     <div class="multiple-issues-upload__publication">
         <input name="publication" type="radio" value="instant" class="multiple-issues-upload__publication-input"
@@ -107,10 +103,6 @@
     links.className = "multiple-issues-upload__card-title-segment";
     links.innerHTML = innerText;
     links.querySelector('.multiple-issues-upload__card-title').innerText = name;
-    links.querySelector('.multiple-issues-upload__card-button_type_move-right').classList.add('multiple-issues-upload__card-button_type_move-right-' + index);
-    links.querySelector('.multiple-issues-upload__card-button_type_move-left').classList.add('multiple-issues-upload__card-button_type_move-left-' + index);
-    links.querySelector('.multiple-issues-upload__card-button_type_edit').classList.add('multiple-issues-upload__card-button_type_edit-' + index);
-    links.querySelector('.multiple-issues-upload__card-button_type_delete').classList.add('multiple-issues-upload__card-button_type_delete-' + index);
     return links;
   }
 
@@ -133,12 +125,16 @@
     return {file: file, name: name, description: description};
   }
 
-  const deleteFile = (index) => {
+  const deleteFile = (evt) => {
+    evt.preventDefault();
+    let index = Number(evt.target.closest('.multiple-issues-upload__card').dataset.index);
     issuesToUpload.splice(index, 1);
     initTable();
   }
 
-  const handleSwitching = (index, direction) => {
+  const handleSwitching = (evt, direction) => {
+    evt.preventDefault();
+    let index = Number(evt.target.closest('.multiple-issues-upload__card').dataset.index);
     if (direction) {
       [issuesToUpload[index], issuesToUpload[index + 1]] = [issuesToUpload[index + 1], issuesToUpload[index]];
     } else {
@@ -147,26 +143,20 @@
     initTable();
   }
 
-  const handleButtons = (index) => {
-    const deleteButton = document.querySelector(".multiple-issues-upload__card-button_type_delete-" + index);
-    const editButton = document.querySelector(".multiple-issues-upload__card-button_type_edit-" + index);
-    const rightArrow = document.querySelector(".multiple-issues-upload__card-button_type_move-right-" + index);
-    const leftArrow = document.querySelector(".multiple-issues-upload__card-button_type_move-left-" + index);
-    deleteButton.addEventListener("click", (evt) => {
-      evt.preventDefault();
-      deleteFile(index)
-    });
-    editButton.addEventListener("click", (evt) => {
-      evt.preventDefault();
-      handleEditModalOpening(index)
-    });
+  const handleButtons = (elem) => {
+    const deleteButton = elem.querySelector(".multiple-issues-upload__card-button_type_delete");
+    const editButton = elem.querySelector(".multiple-issues-upload__card-button_type_edit");
+    const rightArrow = elem.querySelector(".multiple-issues-upload__card-button_type_move-right");
+    const leftArrow = elem.querySelector(".multiple-issues-upload__card-button_type_move-left");
+    deleteButton.addEventListener("click", deleteFile);
+    editButton.addEventListener("click", handleEditModalOpening);
     rightArrow.addEventListener("click", (evt) => {
       evt.preventDefault();
-      handleSwitching(index, 1)
+      handleSwitching(evt, 1)
     });
     leftArrow.addEventListener("click", (evt) => {
       evt.preventDefault();
-      handleSwitching(index, 0)
+      handleSwitching(evt, 0)
     });
   }
 
@@ -177,8 +167,9 @@
     cardList.innerHTML = "";
     let count = 0;
     for (let elem of issuesToUpload) {
-      cardList.append(createFileCard(elem.file, count));
-      handleButtons(count);
+      const card = createFileCard(elem.file, count);
+      cardList.append(card);
+      handleButtons(card);
       count++;
     }
   }
@@ -202,7 +193,7 @@
 
   const initPage = (elem) => {
     const uploadPage = document.createElement("section");
-    uploadPage.className = "container upload";
+    uploadPage.className = "multiple-issues-upload__container";
     uploadPage.innerHTML = PAGE_HTML_TEMPLATE;
     elem.append(uploadPage);
   }
@@ -239,6 +230,11 @@
       name.name = 'name';
       name.value = elem.name;
 
+      const description = document.createElement('input');
+      description.type = 'text';
+      description.name = 'description';
+      description.value = elem.description;
+
       const image = document.createElement('input');
       image.type = 'file';
       image.name = 'image';
@@ -269,6 +265,7 @@
 
       formElement.append(comicsId);
       formElement.append(name);
+      formElement.append(description);
       formElement.append(image);
       formElement.append(button);
       formElement.append(submit);
@@ -288,7 +285,9 @@
     textareaDescription.value = "";
   }
 
-  const handleEditModalOpening = (index) => {
+  const handleEditModalOpening = (evt) => {
+    evt.preventDefault();
+    let index = Number(evt.target.closest('.multiple-issues-upload__card').dataset.index);
     const img = document.querySelector(".edit-modal__img");
     img.src = URL.createObjectURL(issuesToUpload[index].file);
     modalIndex = index;
