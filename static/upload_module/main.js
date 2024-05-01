@@ -24,6 +24,7 @@
         <button class="multiple-issues-upload__button multiple-issues-upload__submit-button">Опубликовать</button>
         <button data-hystmodal="#preview-modal" class="multiple-issues-upload__button multiple-issues-upload__preview-button">Предпросмотр</button>
     </div>
+    <div class="multiple-issues-upload__error"></div>
 </div>
 <div class="hystmodal" id="multipleIssuesModal" aria-hidden="true">
     <div class="hystmodal__wrap">
@@ -63,6 +64,7 @@
 </div>`;
   const issuesToUpload = [];
   let modalIndex = 0;
+  let uploadStarted = false;
 
   const onFirstInput = (e) => {
     const files = document.querySelector(".multiple-issues-upload__dropbox-input").files;
@@ -122,7 +124,7 @@
   }
 
   const createFile = (file, name = "", description = "") => {
-    return {file: file, name: name, description: description};
+    return {file: file, name: name, description: description, status: false, onload: "unload"};
   }
 
   const deleteFile = (evt) => {
@@ -170,9 +172,23 @@
     let count = 0;
     for (let elem of issuesToUpload) {
       const card = createFileCard(elem.file, count);
+      if (elem.onload === "loading") {
+        card.classList.add("multiple-issues-upload__card_onload_loading");
+      } else if (elem.onload === "error") {
+        card.classList.add("multiple-issues-upload__card_onload_error");
+      } else if (elem.onload === "success") {
+        card.classList.add("multiple-issues-upload__card_onload_successful");
+      }
+      issuesToUpload[count].card = card;
       cardList.append(card);
       handleButtons(card);
       count++;
+    }
+    if(uploadStarted){
+      const arrows = document.querySelectorAll(".multiple-issues-upload__card-button_type_move-right, .multiple-issues-upload__card-button_type_move-left");
+      arrows.forEach(arrow => {
+        arrow.classList.add("multiple-issues-upload__card-button_type_move-block");
+      })
     }
   }
 
@@ -182,6 +198,7 @@
       issuesToUpload.push(createFile(elem));
     }
     initTable();
+    console.log(issuesToUpload);
   }
 
   const handleSaveEdit = () => {
@@ -215,8 +232,51 @@
     submitButton.addEventListener("click", () => uploadImages(module.dataset.comicId));
   }
 
+  const handleResponse = (elem, response) => {
+    if (elem.status) {
+      return true;
+    }
+    elem.card.classList.remove("multiple-issues-upload__card_onload_loading");
+    elem.card.classList.remove("multiple-issues-upload__card_onload_error");
+    elem.card.classList.remove("multiple-issues-upload__card_onload_successful");
+    if (!response.querySelector("#error")) {
+      elem.card.classList.add("multiple-issues-upload__card_onload_successful");
+      elem.status = true;
+      elem.onload = "success";
+      return true;
+    } else if (response.querySelector("pre")) {
+      elem.card.classList.add("multiple-issues-upload__card_onload_error");
+      const errorBlock = document.querySelector(".multiple-issues-upload__error");
+      errorBlock.textContent = "Слишком большой файл или иная ошибка";
+      elem.onload = "error";
+      return false;
+    } else {
+      const error = response.querySelector("#error p")
+      elem.card.classList.add("multiple-issues-upload__card_onload_error");
+      const errorBlock = document.querySelector(".multiple-issues-upload__error");
+      errorBlock.textContent = error.textContent;
+      elem.onload = "error";
+      return false;
+    }
+  }
+
+
   const uploadImages = async (id) => {
+    uploadStarted = true;
+    const errorBlock = document.querySelector(".multiple-issues-upload__error");
+    errorBlock.textContent = "";
+    const arrows = document.querySelectorAll(".multiple-issues-upload__card-button_type_move-right, .multiple-issues-upload__card-button_type_move-left");
+    arrows.forEach(arrow => {
+      arrow.classList.add("multiple-issues-upload__card-button_type_move-block");
+    })
+    let success = true;
     for (let elem of issuesToUpload) {
+      if (elem.status) {
+        continue;
+      }
+      elem.card.classList.add("multiple-issues-upload__card_onload_loading");
+      elem.onload = "loading";
+
       const formElement = document.createElement('form');
       formElement.setAttribute('method', 'post');
       formElement.setAttribute('action', '/action/manageAddIssue');
@@ -277,6 +337,14 @@
       console.log(formElement);
       const response = await window.acomicsLegacyClient.sendFormAndParseHtml(formElement);
       console.log(response);
+
+      if (!handleResponse(elem, response)) {
+        success = false;
+        break;
+      }
+    }
+    if (success) {
+      location.reload();
     }
   }
 

@@ -270,6 +270,7 @@
 }
 
 .multiple-issues-upload__card {
+  position: relative;
   width: 150px;
   height: 240px;
   background-color: #ebe5dd;
@@ -446,52 +447,126 @@
   filter: brightness(120%);
 }
 
+.multiple-issues-upload__card_onload_successful::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #2b9422;
+  opacity: 30%;
+}
+
+.multiple-issues-upload__card_onload_successful {
+  pointer-events: none;
+}
+
+.multiple-issues-upload__card_onload_loading::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #c8c600;
+  opacity: 30%;
+}
+
+.multiple-issues-upload__card_onload_loading {
+  pointer-events: none;
+}
+
+.multiple-issues-upload__card_onload_error::before {
+  pointer-events: none;
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #990502;
+  opacity: 30%;
+}
+
+.multiple-issues-upload__card-button_type_move-block {
+  pointer-events: none;
+  opacity: .5;
+  cursor: none;
+  margin: 0;
+  padding: 0;
+}
+
+.multiple-issues-upload__card_onload_error .multiple-issues-upload__card-thumbnail:hover {
+  filter: none;
+}
+
+.multiple-issues-upload__error {
+  margin: 10px 0;
+  font-family: var(--p);
+  line-height: 0.75;
+  font-size: 16px;
+  font-weight: 400;
+  padding: 0;
+  color: #990502;
+}
+
 @media screen and (max-width: 950px) {
-  .edit-modal{
+  .edit-modal {
     width: 450px;
     height: auto;
     flex-direction: column;
   }
-  .edit-modal__img-container{
+
+  .edit-modal__img-container {
     display: none;
   }
-  .edit-modal__text{
+
+  .edit-modal__text {
     padding: 10px 20px 10px 20px;
   }
 }
 
 @media screen and (max-width: 800px) {
-  .multiple-issues-upload__list{
+  .multiple-issues-upload__list {
     width: 330px;
   }
-  .multiple-issues-upload__container{
+
+  .multiple-issues-upload__container {
     width: 460px;
   }
-  .multiple-issues-upload__field{
+
+  .multiple-issues-upload__field {
     align-items: center;
   }
-  .multiple-issues-upload__section-label{
+
+  .multiple-issues-upload__section-label {
     margin: 20px 0 10px 0;
   }
-  .multiple-issues-upload__bottom-buttons{
+
+  .multiple-issues-upload__bottom-buttons {
     display: flex;
     flex-direction: column;
     margin-top: 20px;
   }
 }
+
 @media screen and (max-width: 550px) {
-  .multiple-issues-upload__container{
+  .multiple-issues-upload__container {
     width: 260px;
   }
-  .multiple-issues-upload__list{
+
+  .multiple-issues-upload__list {
     width: 170px;
   }
 }
+
 @media screen and (max-width: 500px) {
-  .edit-modal{
+  .edit-modal {
     width: 310px;
   }
-  .edit-modal__text{
+
+  .edit-modal__text {
     width: 310px;
   }
 }
