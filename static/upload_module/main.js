@@ -1,14 +1,13 @@
 (() => {
   const PAGE_HTML_TEMPLATE = `
 <div class="multiple-issues-upload__dropbox">
-    <label class="multiple-issues-upload__dropbox-label">Drop your files here</label>
+    <label class="multiple-issues-upload__dropbox-label">Перетащите страницы вашего комикса сюда</label>
     <input type="file" class="multiple-issues-upload__dropbox-input" data-limit="2097152" accept="image/png, image/jpeg" multiple name="files">
 </div>
 <div class="multiple-issues-upload__field multiple-issues-upload__field_disabled">
-    <h2 class="multiple-issues-upload__title">Добавить выпуск</h2>
     <div class="multiple-issues-upload__button multiple-issues-upload__top-buttons">
         <input type="file" name="inner_files" data-limit="2097152" accept="image/png, image/jpeg" class="multiple-issues-upload__add-button" multiple>
-        <label>Загрузить изображения</label>
+        <label>Добавить страницы</label>
     </div>
     <div class="multiple-issues-upload__list">
     </div>
@@ -112,6 +111,7 @@
     card.dataset.index = index;
     const thumbnailDiv = document.createElement("div");
     thumbnailDiv.className = "multiple-issues-upload__card-thumbnail";
+    thumbnailDiv.setAttribute("data-hystmodal", "#preview-modal");
     const thumbnail = document.createElement("img")
     thumbnail.className = "image-fit";
     thumbnail.src = URL.createObjectURL(elem);
@@ -148,6 +148,8 @@
     const editButton = elem.querySelector(".multiple-issues-upload__card-button_type_edit");
     const rightArrow = elem.querySelector(".multiple-issues-upload__card-button_type_move-right");
     const leftArrow = elem.querySelector(".multiple-issues-upload__card-button_type_move-left");
+    const previewImage = elem.querySelector(".multiple-issues-upload__card-thumbnail");
+    previewImage.addEventListener("click", handleOnePreview);
     deleteButton.addEventListener("click", deleteFile);
     editButton.addEventListener("click", handleEditModalOpening);
     rightArrow.addEventListener("click", (evt) => {
@@ -303,6 +305,18 @@
       img.className = "preview-modal__image";
       container.append(img);
     }
+  }
+
+  const handleOnePreview = (evt) => {
+    evt.preventDefault();
+    let index = Number(evt.target.closest('.multiple-issues-upload__card').dataset.index);
+    const container = document.querySelector(".preview-modal__container");
+    container.innerHTML = "";
+    const img = document.createElement("img");
+    img.src = URL.createObjectURL(issuesToUpload[index].file);
+    img.alt = "Предпросмотр";
+    img.className = "preview-modal__image";
+    container.append(img);
   }
 
   const multipleIssuesModal = new HystModal({
