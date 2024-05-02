@@ -145,6 +145,7 @@
   display: none;
 }
 
+/* from loading.io/css */
 .multiple-issues-upload__lds-roller,
 .multiple-issues-upload__lds-roller div,
 .multiple-issues-upload__lds-roller div:after {
@@ -392,6 +393,8 @@
   transition: .5s;
   margin: 0;
   padding: 0;
+  position: relative;
+  z-index: 10;
   cursor: zoom-in;
 }
 
