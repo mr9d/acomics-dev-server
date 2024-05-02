@@ -21,8 +21,10 @@
         <label for="multiple-issues-upload__publish-auto" class="multiple-issues-upload__publication-label">Автопубликация</label>
     </div>
     <div class="multiple-issues-upload__bottom-buttons">
+        <div class="multiple-issues-upload__lds-roller_disabled"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
         <button class="multiple-issues-upload__button multiple-issues-upload__submit-button">Опубликовать</button>
         <button data-hystmodal="#preview-modal" class="multiple-issues-upload__button multiple-issues-upload__preview-button">Предпросмотр</button>
+
     </div>
     <div class="multiple-issues-upload__error"></div>
 </div>
@@ -269,6 +271,10 @@
     arrows.forEach(arrow => {
       arrow.classList.add("multiple-issues-upload__card-button_type_move-block");
     })
+    const submitButton = document.querySelector(".multiple-issues-upload__submit-button");
+    submitButton.disabled = true;
+    const loadingImage = document.querySelector(".multiple-issues-upload__lds-roller_disabled");
+    loadingImage.classList.add("multiple-issues-upload__lds-roller");
     let success = true;
     for (let elem of issuesToUpload) {
       if (elem.status) {
