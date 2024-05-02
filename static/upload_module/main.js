@@ -246,12 +246,6 @@
       elem.status = true;
       elem.onload = "success";
       return true;
-    } else if (response.querySelector("pre")) {
-      elem.card.classList.add("multiple-issues-upload__card_onload_error");
-      const errorBlock = document.querySelector(".multiple-issues-upload__error");
-      errorBlock.textContent = "Слишком большой файл или иная ошибка";
-      elem.onload = "error";
-      return false;
     } else {
       const error = response.querySelector("#error p")
       elem.card.classList.add("multiple-issues-upload__card_onload_error");
