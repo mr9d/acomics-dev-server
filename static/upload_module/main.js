@@ -318,7 +318,7 @@
       const publish = document.createElement('input');
       publish.type = 'hidden';
       publish.name = 'publish';
-      publish.value = document.getElementsByName('publication')[0].value;
+      publish.value = document.querySelector('.multiple-issues-upload__publication-input:checked').value;
 
       const numberOrder = document.createElement('input');
       numberOrder.type = 'hidden';
