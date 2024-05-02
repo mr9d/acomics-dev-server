@@ -14,7 +14,9 @@
 
   <!-- Подключение скрипта страницы/компонента -->
   <script defer src="/examples/editAvatar/editAvatar.js"></script>
-<!--  <script defer src="/examples/resizeImage/resizeImage.js"></script>-->
+
+  <link rel="stylesheet" href="/examples/editAvatar/styles.css">
+  <script defer src="/examples/editAvatar/resizeImage.js"></script>
 
 </head>
 
@@ -26,7 +28,8 @@
 
   <input name="username" type="hidden" value="">
 
-  <p>Аватарка: <input type="file" name="avatar" /></p>
+  <p>Аватарка: <input name="avatar" type="file" data-limit="2097152" class="imageResizeAndCrop" data-target-width="200"
+                      data-target-height="200" data-show-circle="true"></p>
 
   <button type="submit">Применить</button>
 

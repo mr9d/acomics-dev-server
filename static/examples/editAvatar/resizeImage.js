@@ -1,11 +1,11 @@
 (function () {
-  const initHTML = () => {
 
-    const body = document.body;
-    body.innerHTML +=
-      '         <div class="page fixed disable refactor-page">\n' +
+  const imageRefactorPage = document.createElement('div');
+  const initHTML = () => {
+    imageRefactorPage.className = 'resize-image-page resize-image-page_disabled';
+    const htmlString =
       '            <div class="refactor-background"></div>\n' +
-      '            <div class="refactor-container" onselectstart="return false">\n' +
+      '            <div class="refactor-container">\n' +
       '                <div class="refactor-container__header">\n' +
       '                    <div class="refactor-container__header-text">Ваша фотография</div>\n' +
       '                    <div class="refactor-container__close-button"></div>\n' +
@@ -68,22 +68,23 @@
       '                    </div>\n' +
       '                </div>\n' +
       '              <canvas class="canvas_crop"></canvas>\n' +
-      '            </div>\n' +
-      '         </div>'
+      '            </div>'
+    imageRefactorPage.insertAdjacentHTML('beforeend', htmlString);
+    document.body.appendChild(imageRefactorPage);
   }
   initHTML();
 
-  const form = document.querySelector('form.editAvatar');
   const dt = new DataTransfer();
-  let targetWidth;
-  let targetHeight;
+  const resizeWindowWidth = 500;
+  const resizeWindowHeight = 500;
 
   let img;
   let initImageWidth;
   let initImageHeight;
   let imageWidth;
   let imageHeight;
-
+  let targetWidth;
+  let targetHeight;
   let zoom = 1;
   let zoomDelta = 0;
   let zoomVariant = "area";
@@ -103,7 +104,6 @@
   let areaBot = 0;
   let areaRight = 0;
 
-  const imageRefactorPage = document.querySelector(".refactor-page");
   const refactorBody = document.querySelector(".refactor-container__body_type_area");
 
   const fileReader = new FileReader();
@@ -130,8 +130,8 @@
               (event.clientY - mousePosY) * (event.clientY - mousePosY)));
         }
 
-        if (initImageWidth * zoom < targetWidth || initImageHeight * zoom < targetHeight) {
-          zoom = targetWidth / Math.min(initImageWidth, initImageHeight);
+        if (initImageWidth * zoom < resizeWindowWidth || initImageHeight * zoom < resizeWindowHeight) {
+          zoom = resizeWindowWidth / Math.min(initImageWidth, initImageHeight);
           zoomDelta = zoom - 1;
         }
 
@@ -175,7 +175,7 @@
     const wheelEvents = () => {
       const imageScrollWithWheel = (event) => {
         zoom -= event.deltaY / 2400;
-        if (initImageWidth * zoom >= targetWidth && initImageHeight * zoom >= targetHeight) {
+        if (initImageWidth * zoom >= resizeWindowWidth && initImageHeight * zoom >= resizeWindowHeight) {
           imageWidth = initImageWidth * zoom;
           imageHeight = initImageHeight * zoom;
         } else {
@@ -242,10 +242,6 @@
         } else {
           clearInterval(scrollInterval);
         }
-
-
-        console.log(clY - refactorBodyOffset.top)
-        console.log(clY, refactorBodyOffset.top, refactorBody.scrollTop);
 
         if (scrollDirection === 1 || scrollDirection === 2) {
           areaTop = clY - viewportImageOffset.top;
@@ -344,16 +340,16 @@
     areaEvents();
 
     const makePositionValid = () => {
-      if (2 * imagePosX + targetWidth > imageWidth) {
-        imagePosX = imageWidth / 2 - targetWidth / 2;
-      } else if (2 * imagePosX - targetWidth < -imageWidth) {
-        imagePosX = -imageWidth / 2 + targetWidth / 2;
+      if (2 * imagePosX + resizeWindowWidth > imageWidth) {
+        imagePosX = imageWidth / 2 - resizeWindowWidth / 2;
+      } else if (2 * imagePosX - resizeWindowWidth < -imageWidth) {
+        imagePosX = -imageWidth / 2 + resizeWindowWidth / 2;
       }
 
-      if (2 * imagePosY + targetHeight > imageHeight) {
-        imagePosY = imageHeight / 2 - targetHeight / 2;
-      } else if (2 * imagePosY - targetHeight < -imageHeight) {
-        imagePosY = -imageHeight / 2 + targetHeight / 2;
+      if (2 * imagePosY + resizeWindowHeight > imageHeight) {
+        imagePosY = imageHeight / 2 - resizeWindowHeight / 2;
+      } else if (2 * imagePosY - resizeWindowHeight < -imageHeight) {
+        imagePosY = -imageHeight / 2 + resizeWindowHeight / 2;
       }
       const posX = "calc(50% + " + imagePosX + "px)";
       const posY = "calc(50% + " + imagePosY + "px)";
@@ -368,7 +364,6 @@
 
         imagePosX = (deltaX - mousePosX);
         imagePosY = (deltaY - mousePosY);
-
         makePositionValid();
       }
 
@@ -390,22 +385,17 @@
       document.addEventListener("mouseup", imageClickUp);
     }
     imageMoveEvents();
-
-    const refactorStartEvents = () => {
-
-    }
-    refactorStartEvents();
   }
   const imageInputChangeMethod = () => {
-    const fileInput = document.querySelector(".imageResizeAndCrop");
+    const fileInput = document.querySelector('input[name="avatar"]');
     targetWidth = Number(fileInput.getAttribute('data-target-width'));
     targetHeight = Number(fileInput.getAttribute('data-target-height'));
     const fileChange = function () {
-      imageRefactorPage.classList.remove("disable");
 
+      imageRefactorPage.classList.remove('resize-image-page_disabled');
       fileReader.readAsDataURL(fileInput.files[0]);
       fileReader.addEventListener("load", () => {
-        img = new Image;
+        img = new Image();
         img.src = fileReader.result;
         getImageData();
 
@@ -448,7 +438,7 @@
 
       imagePosY = 0;
       imagePosX = 0;
-      zoom = targetWidth / Math.min(initImageWidth, initImageHeight);
+      zoom = (resizeWindowWidth * Math.max((resizeWindowWidth / targetWidth), 1)) / Math.min(initImageWidth, initImageHeight);
 
       zoomDelta = 0;
       imageWidth = initImageWidth * zoom;
@@ -468,7 +458,7 @@
 
     const setEnableZoomVariant = () => {
       for (let el of refactorContainers) {
-        let type = el.dataset.type
+        let type = el.dataset.type;
         document.querySelector(".refactor-container__body_type_" + type).style.display = "none";
         document.querySelector(".zoom-variant-item_type_" + type).style.backgroundColor = "transparent";
       }
@@ -483,16 +473,16 @@
           .addEventListener("click", () => {
             zoomVariant = type;
             setEnableZoomVariant();
-          }, type);
+          });
       }
     }
     setDifferentScaleTypesMethod();
 
     const saveUpdatedImageEvent = () => {
-      const crop_button = document.querySelector(".refactor-container__button_type-confirm");
+      const cropButton = document.querySelector(".refactor-container__button_type-confirm");
       const canvas = document.querySelector('.canvas_crop');
 
-      crop_button.addEventListener("click", () => {
+      cropButton.addEventListener("click", () => {
         if (zoomVariant === "area") {
           let viewportImageOffset = backImageTypeArea.getBoundingClientRect();
           let viewportImageAreaOffset = backImageTypeArea.getBoundingClientRect();
@@ -506,23 +496,23 @@
 
           context.drawImage(img, areaLeft * dx, areaTop * dy, initImageWidth - areaLeft * dx - areaRight * dx, initImageHeight - areaTop * dy - areaBot * dy, 0, 0, canvas.width, canvas.height);
         } else {
-          const dx = Math.min(initImageWidth / targetWidth, initImageHeight / targetHeight);
+          const dx = Math.min(initImageWidth / resizeWindowWidth, initImageHeight / resizeWindowHeight);
           canvas.width = targetWidth * dx;
           canvas.height = targetHeight * dx;
           let context = canvas.getContext('2d');
 
-          const sourceX = initImageWidth / 2 - imagePosX / zoom - (targetWidth / 2) / zoom;
-          const sourceY = initImageHeight / 2 - imagePosY / zoom - (targetHeight / 2) / zoom;
+          const sourceX = initImageWidth / 2 - imagePosX / zoom - (resizeWindowWidth / 2) / zoom;
+          const sourceY = initImageHeight / 2 - imagePosY / zoom - (resizeWindowHeight / 2) / zoom;
 
-          const sourceWidth = targetWidth / zoom;
-          const sourceHeight = targetHeight / zoom;
+          const sourceWidth = resizeWindowWidth / zoom;
+          const sourceHeight = resizeWindowHeight / zoom;
           context.drawImage(img, sourceX, sourceY, sourceWidth, sourceHeight, 0, 0, canvas.width, canvas.height);
         }
         canvas.toBlob(function (blob) {
-          console.log(blob);
           dt.items.clear();
           dt.items.add(new File([blob], 'ava.png', {type: "image/png"}));
-          form.requestSubmit();
+          document.querySelector('input[name="avatar"]').files = dt.files;
+          imageRefactorPage.classList.add('resize-image-page_disabled')
         });
       });
     }
@@ -531,7 +521,7 @@
       window.removeEventListener("resize", updateImageAfterWindowResize);
 
       const removeUpdates = () => {
-        imageRefactorPage.classList.add("disable");
+        imageRefactorPage.classList.add('resize-image-page_disabled')
       }
 
       document.querySelector(".refactor-container__button_type-deny").addEventListener("click", removeUpdates);
@@ -577,18 +567,6 @@
     frontImageTypeArea.style.bottom = areaBot + "px";
   }
 
-
-  form.addEventListener('submit', async (evt) => {
-    evt.preventDefault();
-    const username = document.querySelector('section.auth').dataset.username;
-    form.querySelector('input[name="username"]').setAttribute('value', username);
-    const file_list = dt.files;
-    console.log('Коллекция файлов создана:');
-    console.dir(file_list);
-    form.querySelector('input[name="avatar"]').files = file_list;
-    const response = await window.acomicsLegacyClient.sendFormAndParseHtml(evt.target);
-    console.log(response);
-  });
   imageInputChangeMethod();
   imageRefactorMethod();
 })();
