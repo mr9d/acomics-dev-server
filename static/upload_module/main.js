@@ -200,7 +200,7 @@
       issuesToUpload.push(createFile(elem));
     }
     initTable();
-    console.log(issuesToUpload);
+    // console.log(issuesToUpload);
   }
 
   const handleSaveEdit = () => {
@@ -334,9 +334,9 @@
       formElement.append(publish);
       formElement.append(numberOrder);
 
-      console.log(formElement);
+      // console.log(formElement);
       const response = await window.acomicsLegacyClient.sendFormAndParseHtml(formElement);
-      console.log(response);
+      // console.log(response);
 
       if (!handleResponse(elem, response)) {
         success = false;
@@ -347,7 +347,7 @@
     loadingImage.classList.remove("multiple-issues-upload__lds-roller");
     submitButton.textContent = "Повторить попытку"
     if (success) {
-      location.reload();
+      location.href = document.querySelector('.multiple-issues-upload').dataset.successRedirectUrl;
     }
   }
 
